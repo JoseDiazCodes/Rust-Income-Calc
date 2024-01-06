@@ -1,87 +1,76 @@
-import { Button, VerticalBox, GridBox, Button, Slider, LineEdit } from "std-widgets.slint";
+import { Button, VerticalBox , LineEdit, StandardListView, GroupBox} from "std-widgets.slint";
+
 export component AppWindow inherits Window {
 
-   in property <string> results: "";
-   in-out property <bool> opencurtain;
-    // when we click a button we want to display the calculated income in the bottom
+    in property <string> results: "";
     callback divide-income(string);
+    in-out property <bool> open_curtain;
+    animate background { duration: 800ms; }
 
-background: #313e50;
-    GridBox {
+    background: #313e50;
+
+    GridLayout {
         padding: 50px;
         spacing: 25px;
-        // Row one
         Row {
-            Text {
+            text := Text {
                 text: "Enter Total Income";
                 horizontal-alignment: center;
                 font-size: 24px;
-                color: whitesmoke;
+                font-weight: 900;
             }
         }
-        // Row two
         Row {
-            income := LineEdit {
-                font-size: 14px;
+            input := LineEdit {
+                placeholder-text: "Enter your number";
+                font-size: 16px;
+                height: 35px;
                 horizontal-alignment: center;
-                placeholder-text: "Enter A Number";
-                height: 35px;
             }
         }
-        // Row three
         Row {
-            Button {
+            button := Button {
                 text: "Calculate";
-                primary: true;
+                padding-top: 30px;
                 height: 35px;
+                primary: true;
                 clicked => {
-                    root.opencurtain = !root.opencurtain;
-                    divide-income(income.text)
+                    root.open_curtain = !root.open_curtain;
+                    root.divide-income(input.text);
                 }
             }
         }
-
         Row {
             VerticalBox {
                 Rectangle {
                     height: 100px;
                     background: #f2f2f2;
-                }
                     Text {
-                        color: black;
-                        font-size: 16px;
-                        font-weight: 500;
                         text: root.results;
+                        font-size: 16px;
+                        color: #000000;
+                        font-weight: 500;
                     }
-            }
-        }
-        // Left Rectangle
+                    // Left curtain
                     Rectangle {
                         background: #333333;
-                        x: 0;
-                        width: opencurtain ? 0px : parent.width / 2;
+                        x: 0px;
+                        width: open_curtain ? 0px : (parent.width / 2);
                         height: parent.height;
-                        animate width {
-                             duration: 250ms; easing: ease-in;
-                        }
+                        animate width { duration: 250ms; easing: ease-in; }
                     }
-        // Right Rectangle
-    }               Rectangle {
+
+                    // Right curtain
+                    Rectangle {
                         background: #333333;
-                        x: opencurtain ? parent.width : parent.width / 2;
-                        width: opencurtain ? 0px : parent.width / 2;
+                        x: open_curtain ? parent.width : (parent.width / 2);
+                        width: open_curtain ? 0px : (parent.width / 2);
                         height: parent.height;
-                        animate width {
-                             duration: 250ms; easing: ease-in;
-                        }
-                        animate x {
-                            duration: 250ms; easing: ease-in;
-                       }
+                        animate width { duration: 250ms; easing: ease-in; }
+                        animate x { duration: 250ms; easing: ease-in; }
                     }
+                }
+            }
+        }
+    }
 }
-
-
-// Travis Media
-// https://www.youtube.com/watch?v=7aFgeUG9TK4
-
-// Think about abtracting the rectangle out of the Row
