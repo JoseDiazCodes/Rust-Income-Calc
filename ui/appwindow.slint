@@ -1,0 +1,61 @@
+import { Button, VerticalBox, GridBox, Button, Slider, LineEdit } from "std-widgets.slint";
+export component AppWindow inherits Window {
+
+    property <string> results: "";
+    // when we click a button we want to display the calculated income in the bottom
+    callback divide-income(string);
+
+background: #313e50;
+    GridBox {
+        padding: 50px;
+        spacing: 25px;
+        // Row one
+        Row {
+            Text {
+                text: "Enter Total Income";
+                horizontal-alignment: center;
+                font-size: 24px;
+                color: whitesmoke;
+            }
+        }
+        // Row two
+        Row {
+            income := LineEdit {
+                font-size: 14px;
+                horizontal-alignment: center;
+                placeholder-text: "Enter A Number";
+                height: 35px;
+            }
+        }
+        // Row three
+        Row {
+            Button {
+                text: "Calculate";
+                primary: true;
+                height: 35px;
+                clicked => {divide-income(income.text)}
+            }
+        }
+
+        Row {
+            VerticalBox {
+                Rectangle {
+                    height: 100px;
+                    background: #f2f2f2;
+                }
+                    Text {
+                        color: black;
+                        font-size: 16px;
+                        font-weight: 500;
+                        text: root.results;
+                    }
+            }
+        }
+    }
+}
+
+
+// Travis Media
+// https://www.youtube.com/watch?v=7aFgeUG9TK4
+
+// Think about abtracting the rectangle out of the Row
