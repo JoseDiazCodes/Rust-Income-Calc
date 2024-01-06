@@ -1,4 +1,4 @@
-# Slint Rust Income Calculator/
+# Slint/Rust Income Calculator/
 
 A template for a Rust application that's using [Slint](https://slint.rs) for the user interface.
 
@@ -21,4 +21,5 @@ _PLACEHOLDER_
    ```
 
 We recommend installing the [Slint extension on VSCODE](https://marketplace.visualstudio.com/items?itemName=Slint.slint).
+
 # Rust-Income-Calc
